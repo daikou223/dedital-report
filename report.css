@@ -1,0 +1,219 @@
+body {
+	counter-reset:page;
+	font-family:serif;
+	counter-reset: chapter;
+	counter-reset:tab;
+}
+h1{
+	text-align:center;
+	counter-reset:cap;
+  break-before:page;
+}
+h2:not(.re){
+	counter-increment: chapter;
+	counter-reset:section;
+}
+h2:not(.re)::before {
+  content: counter(chapter)". ";
+}
+h3::before {
+  counter-increment: section;
+  content: counter(chapter) "-" counter(section)" ";
+}
+h4::before{
+	content:"・"
+}
+div.bigtitle{
+	font-size:50px;
+	text-align:center;
+}
+div.id{
+	font-size:40px;
+	text-align:center;
+}
+div.id::before{
+	content:"第";
+}
+div.id::after{
+	content:"回";
+}
+div.Title{
+	font-size:50px;
+	text-align:center;
+	border-bottom:1px solid black;
+}
+div.Title::before{
+	content:"題目 ： ";
+}
+div.start{
+	float:left;
+}
+div.dates{
+	font-size:20px;
+	border:1px solid black;
+	height:80px;
+	margin-top:6px;
+}
+div.submit::before{
+	content:"提出年月日 ";
+	font-size:25px;
+}
+div.correction{
+	border:dashed 2px black;
+	height:500px;
+	font-size:large;
+}
+div.correction::before{
+	content:"修正リスト";
+}
+div.submit{
+	font-size:20px;
+	margin-left:450px
+}
+div.date{
+	border-bottom:1px solid black;
+	width:100px;
+	margin-left:20px;
+	margin-bottom:20px;
+	float:left;
+}
+div.neme{
+	text-align:right;
+	margin-bottom:30px;
+	font-size:25px;
+}
+.name{
+	text-align:center;
+}
+.name::before{
+	content:"6222098 林航平";
+}
+.url{
+	color:blue;
+	text-decoration:underline;
+	
+}
+div.def{
+	border:solid 2px;
+}
+table:not(.rey):not(.rey-border){
+	margin:auto;
+	counter-increment:tab;
+	border-collapse:collapse;
+	border-bottom:3px double;
+	border-top:3px double;
+	width:650px;
+}
+td{
+	border:0px;
+	text-align:center;
+	font-size:15px;
+}
+th{
+	border-bottom:1px solid black;
+}
+
+.method{
+	padding-left:15px;
+}
+.loop1{
+	padding-left:30px;
+}
+.loop2{
+	padding-left:45px;
+}
+.loop3{
+	padding-left:60px;
+}
+.used{
+	border:solid 1px;
+	border-color:black;
+	border-radius:20px;
+}
+table>caption::before{
+	content:"表"counter(tab)". "
+}
+figure{
+	counter-increment:cap;
+	
+}
+img{
+	width:500px;
+	margin-left:10%
+}
+img.dou{
+	width:300px;
+}
+th>img{
+	width:auto;
+}
+ul.dou{
+	display:flex;
+}
+img.tri{
+	width:250px;
+	margin:0px;
+	padding:0px;
+}
+table.rey{
+	padding:0px;
+	border-collapse:collapse;
+}
+ul.tri{
+	display:flex;
+}
+figcaption::before{
+	content:"図"counter(cap)". ";
+}
+figcaption{
+	text-align:center;
+}
+#red{
+	color:red;
+}
+#redt{
+	border:2px solid red;
+}
+.ref{
+	color:black;
+}
+.ref::before{
+	content:"式"
+}
+figure{
+	margin:1;
+}
+.gray{
+	color:#c9c2c2;
+}
+.border{
+	border:2px dotted black;
+}
+.rey-border > tbody > tr > td{
+	border-right:1px dotted black;
+	border-bottom:1px dotted black;
+}
+.rightline{
+	border-right:1px double black !important;
+}
+.underline{
+	border-bottom:1px solid black !important;
+}
+.redbold{
+	color:red;
+	font-weight:700;
+}
+@media print {
+  figure {
+    page-break-inside: avoid; /* ページ途中で切れないようにする */
+    page-break-before: auto;  /* ページの開始前に改行しないようにする */
+    page-break-after: auto;   /* ページの終わり後に改行しないようにする */
+  }
+}
+@page {
+  /* margin box at top right showing page number */
+  @top-right {
+    content: "Page " counter(pageNumber);
+	font-size:5px;
+  }
+}

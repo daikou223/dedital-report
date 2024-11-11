@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <title>デジタル回路　レポート</title>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link rel="stylesheet" href="./report.css" />
+    </head>
+    <body>
+        <h1></h1>
+        <div class="id">2</div>
+        <div class="bigtitle">物理学実験報告書</div>
+        <div class="Title">デジタル回路レポート</div>
+        <div class="neme">先端物理学科 学籍番号 6222098 林航平 (2組E班)</div>
+        <div class="correction"></div>
+        <div class="dates">
+            <div class="start">実験開始日</div>
+            <div class="date">第一回 2024/10/18</div>
+            <div class="date">第二回 2024/10/25</div>
+        </div>
+        <div class="submit">2024/11/08</div>
+        <p>
+            本レポートの内部構造に関しては<a class="url">https://github.com/daikou223/dedital-report.git</a
+            >にて見れますので適時そちらご参照ください
+        </p>
+        <h1>デジタル回路　レポート</h1>
+        <p class="name"></p>
+        <h2>目的</h2>
+        <ol>
+            <li>論理ゲートについて理解し，真理値表を作成する</li>
+            <li>スイッチ，LEDを利用して，論理回路を作成する</li>
+        </ol>
+        <h2>原理</h2>
+        <h3>論理ゲート</h3>
+        <p>
+            論理ゲートはある規則に従って入力を出力に変換する，いわば関数のようなものである．主な論理ゲートはAND,NAND,OR,NOR,XOR,XNOR,NOTの7種であり，入力と出力の規則は表1の通りである．入出力は，0,1のみが許され，2,-1などの他の入力は禁止されている．これをbool代数という．電気回路としてはある閾値を下回る電圧を0，閾値を上回る電圧を1として扱う．(閾値に関しては実験法3-4にて触れる．)
+        </p>
+        <table>
+            <caption>
+                論理ゲートの入力と出力
+            </caption>
+            <tr>
+                <th rowspan="2">論理</th>
+                <th rowspan="2">論理式</th>
+                <th rowspan="2">回路記号</th>
+                <th colspan="3">真理値表</th>
+            </tr>
+            <tr>
+                <th>入力A</th>
+                <th>入力B</th>
+                <th>出力</th>
+            </tr>
+            <tr>
+                <th rowspan="4">AND</th>
+                <th rowspan="4">\(A\cdot B\)</th>
+                <th rowspan="4"><img src="and.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+
+            <tr>
+                <th rowspan="4">NAND</th>
+                <th rowspan="4">\(\overline{A \cdot B}\)</th>
+                <th rowspan="4"><img src="nand.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+
+            <tr>
+                <th rowspan="4">OR</th>
+                <th rowspan="4">\(A + B\)</th>
+                <th rowspan="4"><img src="or.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+
+            <tr>
+                <th rowspan="4">NOR</th>
+                <th rowspan="4">\(\overline{A + B}\)</th>
+                <th rowspan="4"><img src="nor.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+
+            <tr>
+                <th rowspan="4">XOR</th>
+                <th rowspan="4">\(A \oplus B\)</th>
+                <th rowspan="4"><img src="xor.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+
+            <tr>
+                <th rowspan="4">XNOR</th>
+                <th rowspan="4">\(\overline{A\oplus B}\)</th>
+                <th rowspan="4"><img src="xnor.png" /></th>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr class="underline">
+                <td>1</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+
+            <tr>
+                <th rowspan="2">NOT</th>
+                <th rowspan="2">\(\overline{A}\)</th>
+                <th rowspan="2"><img src="not.png" /></th>
+                <td>0</td>
+                <td></td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td class="result">0</td>
+            </tr>
+        </table>
+        <h2>実験方法</h2>
+        <h3>直流安定化電源の作成</h3>
+        <p>
+            図1のように配線を行う.通常コンセントからは電源は交流実効値100Vの電流が流れている．ACアダプターにて交流12Vまで減圧し，三端子レギュレーターにて5Vまで減圧を行う．そのうえ，コンデンサーの平滑化作用により揺れを少なくし，交流を直流をみなして扱うことができる．(...考察)</p>
+            <p class = "redbold">！三端子レギュレーター，ACアダプターでは減圧しているので，高温になることに注意すること</p>
+        <figure>
+            <img src="DCmaker.png" />
+            <figcaption>直流安定化電源の作成</figcaption>
+        </figure>
+        <h3>論理ゲートの作成1</h3>
+        <p>
+            図2のように回路を作成する(導線の色を同一にするとわかりやすい).この回路では，スイッチが上になっているときは論理は1なっている．その時，LEDに流れる電圧が5Vになっているため点灯する．またLED3でも直前で5Vになっていれば，電流が流れ，点灯する．それぞれLED1,LED2の入力に対してLED3の点灯を確認すると以下の表2になる．
+        </p>
+        <figure>
+            <img src="orgate.png" />
+            <figcaption>回路1の作成</figcaption>
+        </figure>
+        <table>
+            <caption>
+                回路1の真理値
+            </caption>
+            <tr>
+                <th>LED1</th>
+                <th>LED2</th>
+                <th>LED3(出力)</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+        </table>
+        <p>表1と表2を参照すると，OR回路と等しいことがわかる．よってこの回路はORの論理ゲートとしてふるまうことがわかる．(...考察)</p>
+
+        <h3>論理ゲートの作成2</h3>
+        <p>
+            図3のように回路を作成する．スイッチが上になっているときは論理が1であり，スイッチが下になったとき論理が0である．この回路ではLEDの点灯とスイッチが逆転していることに注意が必要である．<a class = "gray">(これ分かりにくいからLEDの前にNOTのICを使って同期させられないものかな...)</a>LED3においてはOR同様に直前で5V点灯するのでそのままである．それぞれのスイッチ入力に対してLED3の点灯を確認すると表3になる．<a class = "gray">(これ分かりにくいからLEDの前にNOTのICを使って同期させられないものかな...)</a>
+        </p>
+        <figure>
+            <img src="nandgate.png" />
+            <figcaption>回路2の作成</figcaption>
+        </figure>
+        <table>
+            <caption>
+                回路2の真理値
+            </caption>
+            <tr>
+                <th>SW1</th>
+                <th>SW2</th>
+                <th>LED3(出力)</th>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td class="result">0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td class="result">1</td>
+            </tr>
+        </table>
+        <p>表1,表3よりこの回路はANDゲートとしてふるまうことがわかる．</p>
+
+        <h3>閾値</h3>
+        <p>
+            上の論理回路の作成では5Vでは論理が1であり,0Vでは論理が0として扱っていた．この実験はNANDではどこをしきい値を制定すべきであるかというのを明らかにする実験である.図11に示す回路を作成し，可変抵抗の値を変更することによって入力電圧を調整し，出力電圧との関係を探る．NAND回路として74HC00APのICを用いることとする．
+        </p>
+        <figure>
+            <img src="sikii.png" />
+            <figcaption>閾値の特定のための回路図</figcaption>
+            <!--教科書の図11をここに入れる-->
+        </figure>
+        <p>この回路ではNANDに同一の電圧が入っているため，表1のNANDを確認するとこれはNOT回路と同一の挙動をすることがわかる．<i>V</i><sub>in</sub>での電圧と<i>V</i><sub>out</sub>での電圧の関係をグラフにする．</p>
+        
+        <h3>[課題7-1]論理回路の作成3</h3>
+        <p>ここではXOR回路を作成したい．XORを作成する回路は以下のような回路である．
+        上のスイッチをA,下のスイッチをBをするとブール演算として</p>
+        \begin{align}
+        \bar{A}\cdot B+A \cdot \bar{B} &= \bar{A}\cdot A + \bar{A}\cdot B + A \cdot \bar{B} + B\cdot \bar{B}\\
+        &= \bar{A}\cdot(A+B) + \bar{B}\cdot(A+B)\\
+        &= (\bar{A}+\bar{B})\cdot (A+B)\\
+        \end{align}
+        <p>このブール演算ではA＝Bだと，どちらかが0になるため，0.よって排他的論理和になっている．</p>
+        <figure>
+            <img src="forxor.png" />
+            <figcaption>排他的論理和のための回路図</figcaption>
+            <!--教科書の図14四角部にORを入れる-->
+        </figure>
+
+        <h3>[課題8-1]半加算器の作成</h3>
+        <p>
+            ここでは半加算器を作成したい．半加算器とは1bit+1bitのみの和が出力できるような装置であり，出力部は計算結果部SUMと繰り上がり部の２端子がある．桁上がりはA=B=1のときにのみ1になるので論理積，その桁の計算はA\(\ne\)Bのときのみ1にすればよいので排他的論和をとればよいことがわかる．(A=B=0のときは0,A=B=1は桁上がりをして10であるため)．
+        </p>
+        <figure>
+            <img src="harfadder.png" />
+            <figcaption>半加算器作成のための回路図</figcaption>
+            <!--教科書の図17四角部に排他的論和回路を入れる-->
+        </figure>
+        <p>この繰り上がりを上位の桁の足し算に組み込めるようにした回路を全加算器という</p>
+        <!--<figure>H
+            <img src="fulladder.png" />
+            <figcaption>全加算器作成のための回路図</figcaption>
+            教科書の図18を入れる
+        </figure>-->
+
+        <h3>[課題9-1]4bit加算器の作成</h3>
+        <p>
+            ここでは4bit加算器を作成したい．ここでは74HC283というICを用いて以下の回路を作成する．(回路が複雑であるため多くの色を使用しており，実際の回路の導線の色と異なることに注意すること)
+        </p>
+        <figure>
+            <img src="4bitadder.png" />
+            <figcaption>4bit加算器作成のための回路図</figcaption>
+            <!--教科書の図21を入れる-->
+        </figure>
+        <p>それぞれのLEDの点灯消滅が1,0に対応しており，スイッチAとBの和を5bitの数値で表す．</p>
+        <h3>[課題10-1]フリップフロップ回路の作成</h3>
+        <p>フリップフロップとは1bitの記憶装置である．図8の回路を組んだ．</p>
+        <figure>
+            <img src="frip.png" />
+            <figcaption>フリップフロップ回路のための回路図</figcaption>
+            <!--教科書の図23を入れるがＲがないのでそれを追加-->
+        </figure>
+        <p>
+            スイッチは三段階であり，上に倒すとSが0Vになり，下に倒すとRが0Vになる．中央にするとどちらも5Vになる．
+        </p>
+        <p class = "redbold">!この時どちらも0Vにすることは不可能であることに注意すること.</p>
+        <table>
+            <caption>
+                フリップフロップ回路の真理値表
+            </caption>
+            <tr>
+                <th>S</th>
+                <th>R</th>
+                <th>切り替える前の\(Q_1\)</th>
+                <th>切り替える前の\(Q_2\)</th>
+                <th class="rightborder">\(Q_1\)</th>
+                <th>\(Q_2\)</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0</td>
+                <td>*</td>
+                <td>*</td>
+                <td class="rightborder">0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>*</td>
+                <td>*</td>
+                <td class="rightborder">1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td class="rightborder">1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td>1</td>
+                <td class="rightborder">0</td>
+                <td>1</td>
+            </tr>
+        </table>
+        <p>表4より，(S,R)=(1,0)の状態から(1,1)に切り替えた際は[\(Q_1,Q_2\)] = [0,1]の状態で保持され，(0,1)の状態から切り替えても[1,0]で保持されていることがわかる．これがフリップフロップ回路である．</p>
+
+        <h3>[課題11]16進数カウンタ</h3>
+        <p>
+            IC:74HC193とフリップフロップ回路を用いて以下の回路を作成する．この回路ではフリップフロップのスイッチを切り替えた回数によってLEDの点灯が変化する．
+        </p>
+        <figure>
+            <img src="16sin.png" />
+            <figcaption>16進カウンタのための回路図</figcaption>
+            <!--教科書の図24を入れる-->
+        </figure>
+        <p>16進数カウンターの真理値表はスイッチの往復回数をNとすると以下の表になる</p>
+        <table>
+            <caption>
+                16進カウンタの真理値表
+            </caption>
+            <tbody id="16sin"></tbody>
+        </table>
+
+        <h3>DA変換回路の作成</h3>
+        <p>
+            上の実験では二進数の計算を行ったが，ライトの点灯のままだと，人間には理解しがたい．よって図10のような回路を組むことによって，デジタルの電気信号に変換することが可能である
+        </p>
+        <figure>
+            <img src="DA.png" />
+            <figcaption>DA変換回路</figcaption>
+            <!--教科書の図25を入れる-->
+        </figure>
+
+        <h3>簡易オシレーター</h3>
+        <p>
+            オシレーターはマルチバイブレータとも呼ばれており，NANDゲートを用いて作成することができ，振動波形を出力するものである．
+        </p>
+        <figure>
+            <img src="sindou.png" />
+            <figcaption>簡易オシレータ作成のための回路図</figcaption>
+            <!--教科書の図12の必要部分のみをここに入れる-->
+        </figure>
+        <p>二つのコンデンサー(\(10^{-2}\mathrm{\mu F},10^{-3}\mathrm{\mu F}\))において，回路図上でのA,B,C,Dでの電圧の波形をオシロスコープで観察し，点A,B,C,Dのそれぞれの関係性とコンデンサーの性質について触れた</p>
+
+        <h3>オシレーターをDA変換につなぐ</h3>
+        <p>
+            オシレーターでは論理0\(\leftrightarrow\)1を繰り返すので，フリップフロップと同様な動きをする．オシレーターをDA変換装置につないだ時の挙動もオシレーターで観察することを本実験の目的とする．
+        </p>
+        <h2>結果</h2>
+
+        <h3>[課題1]論理ゲートの作成1</h3>
+        <p>図2を参考にし作成した回路が以下の図12である</p>
+        <figure>
+            <img src="DSC_0099.JPG" />
+            <figcaption>OR回路の実際の回路図</figcaption>
+        </figure>
+        <p>入力が0,1のときにLED3が点灯しているため，しっかりORゲートに即していること</p>
+        <p>また，それぞれの切り替えに関して，電流の流れは黄土色の矢印で示したものである</p>
+        <table class="rey-border">
+            <tr class="underline">
+                <td>SW1/SW2</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    <img src="or11.png" class = "tri">
+                </td>
+                <td>
+                    <img src="or10.png" class = "tri">
+                </td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>
+                    <img src="or01.png" class = "tri">
+                   </td>
+                <td>
+                    <img src="or00.png" class = "tri">
+                </td>
+            </tr>
+        </table>
+
+        <h3>[課題2]論理ゲートの作成2</h3>
+        <p>図3を参考にし作成した回路が以下の図13である</p>
+        <figure>
+            <img src="DSC_0100.JPG" />
+            <figcaption>AND回路の実際の回路図</figcaption>
+        </figure>
+        <p>
+            入力が1,0(LEDの点灯と逆転していることに注意)のときにLED3が点灯していないため，しっかりANDゲートに即して稼働していることがわかる
+        </p>
+        <p>また，それぞれの切り替えに関して，黄土色の矢印で示したものが電流の流れである</p>
+        <table class="rey-border">
+            <caption>OR回路における電流の様子</caption>
+            <tr class="underline">
+                <td>SW1/SW2</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    <img src="and11.png" class = "tri">
+                </td>
+                <td>
+                    <img src="and10.png" class = "tri">
+                </td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>
+                    <img src="and01.png" class = "tri">
+                   </td>
+                <td>
+                    <img src="and00.png" class = "tri">
+                </td>
+            </tr>
+        </table>
+        <p>どちらかのスイッチが0になっているとき，LED3の抵抗は十分大きく，電流の大部分はLED1,2のほうに流れるが，LED3にも電流が少し流れる現象がみられた．図13においてもLED3が若干光っている様子を観測することができた．</p>
+
+        <h3>[課題4]閾値</h3>
+        <p>図4を参考にし作成した回路が以下の図14である</p>
+        <figure>
+            <img src="DSC_0102.JPG" />
+            <figcaption>閾値測定の様子</figcaption>
+        </figure>
+        <p>以下の表，グラフは入力電圧と出力電圧の関係である．</p>
+        <table>
+            <caption>入力電圧と出力電圧の関係</caption>
+            <tbody id = "dennatu">
+                <tr><th>入力電圧 \(V_\mathrm{in}\)</th><th>出力電圧 \(V_\mathrm{out}\)</th></tr>
+            </tbody>
+        </table>
+        <figure>
+        <div id="volgragh"></div>
+            <figcaption>入力電圧と出力電圧の関係</figcaption>
+        </figure>
+        <p>
+            出力電圧が最大値の半分を超えた時の入力電圧をしきい値とすると<a id="sikii">**このメッセージはおかしいよ</a
+            ><i>V</i>である．
+        </p>
+        <div id="countgragh"></div>
+
+        <h3>[課題7-2]論理ゲートの作成3</h3>
+        <p>図5を参考にし作成した回路が以下の図16である</p>
+        <figure>
+            <img src="DSC_0104.JPG" />
+            <figcaption>XOR回路の実際の様子</figcaption>
+        </figure>
+        <p>入力が1,0のときにLED点灯しているためXORゲートに即していることがわかる</p>
+
+        <h3>[課題8-2]排他的論理和を利用した，半加算器の作成</h3>
+        <p>図6を参考にし作成した回路が以下の図17である</p>
+        <figure>
+            <img src="DSC_0105.JPG" />
+            <figcaption>半加算器の実際の作成図</figcaption>
+        </figure>
+        <p>
+            入力が1,1のときに桁上がりのLED(下)が点灯し，排他的論理和が消灯しているため半加算器として稼働していることが確認できた
+        </p>
+
+        <h3>[課題9-2]4bit加算器の作成</h3>
+        <p>図7を実際に組んだものが図18~20である.</p>
+        <table class="rey">
+            <caption>AND回路における電流の様子</caption>
+            <tr>
+                <td>
+                    <figure>
+                        <img src="DSC_0110(9).JPG" class="tri" />
+                        <figcaption>4bit加算器の実際の回路</figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <img src="DSC_0113(8).JPG" class="tri" />
+                        <figcaption>4bit加算器の実際の回路</figcaption>
+                    </figure>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <figure>
+                        <img src="DSC_0108(17).JPG" class="tri" />
+                        <figcaption>4bit加算器の実際の回路</figcaption>
+                    </figure>
+                </td>
+            </tr>
+        </table>
+        <p>
+            上の画像は下から，1bit目である.よって図24は01001=9,図25は01000 = 8,図26は10001 =
+            17より足し算が実装できていることがわかる．
+        </p>
+
+        <h3>[課題10-2]フリップフロップ回路</h3>
+        <p>図8を実際に作成したものが図21である．</p>
+        <figure>
+            <img src="DSC_0122.JPG" />
+            <figcaption>フリップフロップ回路</figcaption>
+        </figure>
+        <p>スイッチを上から中央に切り替えた時の図である．上に切り替えたときの状態が保持されている．(...考察)フリップフロップとして稼働していることがわかる．</p>
+
+        <h3>16進数カウンター</h3>
+        <p>4-7のフリップフロップ回路を利用して，カウンターを作成した</p>
+        <figure>
+            <img src="CENTER_0001_BURST20241025141919808_COVER.JPG" />
+            <figcaption>16進数カウンター回路(3回切り替え)</figcaption>
+        </figure>
+        <p>上の図は上から1bitであることに注意すると図は0011なので3,切り替え回数と対応していることがわかる</p>
+
+        <h3>[課題12]DA(デジタルアナログ)回路</h3>
+        <p>
+            上の16進数カウンターではライトの点灯によって，切り替え回数を表示していたが，これでは人間的にはわかりずらい．そのため梯子回路を使用することによって，離散的なデジタルデータを連続的なアナログデータに変換できる．実際の回路は図29である.
+        </p>
+        <figure>
+            <img src="DSC_0123.JPG" />
+            <figcaption>DA変換の梯子回路</figcaption>
+        </figure>
+        <p>切り替え回数と電圧の関係は以下の表になった</p>
+        <table>
+            <caption>
+                切り替え回数と出力電圧
+            </caption>
+            <tbody id="N-Vout"></tbody>
+        </table>
+        <p>一回の切り替えごとに<a id="volt"></a>Vずつ上昇し，16回切り替えでもとに戻っていることがわかる．(...考察)</p>
+
+        <h3>[課題5]簡易オシレーター</h3>
+        <p>74HC00と\(10^{-3}\mathrm{\mu F}\)のコンデンサーを用いた簡易オシレータを実際に組んだものが以下のものになる．</p>
+        <figure>
+            <img src="DSC_0124.JPG" />
+            <figcaption>簡易オシレータ</figcaption>
+        </figure>
+        <p>点Bでの電圧は以下の写真(黄)になり，振動していることがわかる．また点Bと他のA,C,D点の電位と比較を行う</p>
+        <table class="rey">
+            <tr>
+                <td>
+                    <figure>
+                        <img src="DSC_0125.JPG" class="tri" />
+                        <figcaption>点Bでの電位の時間変化</figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <img src="DSC_0126.JPG" class="tri" />
+                        <figcaption>点Bと比較した点Aでの電位の時間変化</figcaption>
+                    </figure>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <figure>
+                        <img src="DSC_0127.JPG" class="tri" />
+                        <figcaption>点Bと比較した点Cでの電位の時間変化</figcaption>
+                    </figure>
+                </td>
+                <td>
+                    <figure>
+                        <img src="DSC_0128.JPG" class="tri" />
+                        <figcaption>点Bと比較した点Dでの電位の時間変化</figcaption>
+                    </figure>
+                </td>
+            </tr>
+        </table>
+        <p>点Bでは電位が振動しており，その振動は100\(\mathrm{\mu s}\)と150\(\mathrm{\mu s}\)である.点Bと他の点の電位を比較すると，点Aの電位は逆転しており，Dは同じ電位の動きをしている．これらはNOT回路の挙動から予想できるところである．点Cでは逆転している上に減衰のような動きをしている．(...考察)</p>
+        <p>コンデンサーを\(10^{-3}\mathrm{\mu F}\)から\(10^{-2}\mathrm{\mu F}\)のものに置き換えた時の点Cの電位変化を追う</p>
+        <figure>
+            <img src="DSC_0129.JPG" />
+            <figcaption>コンデンサー置き換え後の点Cでの電位の時間変化</figcaption>
+        </figure>
+        <p>コンデンサーを置き換えた後は周期が1msと1.5msになり，コンデンサーを置き換える前の周期が10倍になっていることがわかる．</p>
+        <h3>オシレーターをDA変換する</h3>
+        <p>簡易オシレーターを先ほどの16進数カウンターとDA変換に接続した．オシレータの表示は以下の写真になった．</p>
+        <figure>
+            <img src="DSC_0133.JPG" />
+            <figcaption>オシレーターとカウンターの接続時電圧</figcaption>
+        </figure>
+
+        <h2>考察(課題)</h2>
+        
+        <h3>コンデンサーの平滑化作用についての考察</h3>
+        <p>ここでは三端子レギュレーターから出てくる交流5Vがなぜ図1のコンデンサーの配置で直流に知被けられるのかを考察する．三端子レギュレーターはほぼ強引に5V以上のものを5Vにする<a href = "https://www.oit.ac.jp/rd/labs/kobayashi-lab/~yagshi/old_web/electronics/3terminalregulator.html">(参考文献1).</a>よってから出てくる電圧は以下の式で表される</p>
+        \begin{align}
+            V_\mathrm{三端子} = \begin{cases}12\sqrt{2}\sin(\frac{2\pi}{50}t) & (入力電圧5未満のとき)\\5& (入力電圧が5以上のとき)\end{cases}\tag{2}
+        \end{align}
+        <p>この三端子レギュレータの作用である程度，直流になっているが，まだ三角関数部分を持っているのでこれをコンデンサーの作用によって打ち消すことを考える(残る三角関数部の事をリップルという)
+            コンデンサーは電圧が低くなっても，保有している電荷によって，電圧を生みだしてくれる．以下の図は<a href = "https://article.murata.com/ja-jp/article/basics-of-capacitors-5">参考文献2</a>より画像をお借りいたしました．</p>
+        <figure>
+            <img src= "20110928-p1_0003.png">
+            <figcaption>コンデンサーの平滑作用</figcaption>
+        </figure>
+        <h3>[課題6]オシレーターのコンデンサー特性の考察</h3>
+        <h4>Bが5Vのとき</h4>
+        <p>赤部が5V,黒部を0Vとして回路図を書くと図31になる．</p>
+        <figure>
+            <img src = "osirateB1.png">
+            <figcaption>Bが1のときのオシレーター電圧</figcaption>
+        </figure>
+        <p>緑部に関しては端子123の関係から論理が0であることがわかるが，0V~<a id = "sikii1"></a>Vの幅が存在する部分になる．コンデンサー-ICの5端子，6端子-抵抗の閉回路を考え，コンデンサーにたまっている電荷をQとすると以下の式ができる．</p>
+        \begin{align}
+        5 &= R\dot{Q} + \frac{1}{C}Q\tag{3}\\
+        \end{align}
+        <p>両辺を時間で微分すると</p>
+        \begin{align}
+         0 &= R\ddot{Q} + \frac{1}{C}\dot{Q}\\
+        Q &= \ ^{\forall}A\exp(\frac{1}{RC}t)+\ ^{\forall}B\\
+        V &=\frac{Q}{C} = A^{\prime}\exp(\frac{t}{RC})+\ ^{\forall}B^{\prime}\tag{4}
+        \end{align}
+        <p>図27の概形より，\(A^{\prime}\)が正，電圧は単調増加することがわかる．あるときにはしきい値である0V~<a id = "sikii2"></a>Vを超えるため，緑部分が1となる．なので点Bが0なるので点5Vのときは0Vに変化することがわかる．-(A)</p>
+        <h4>Bが0Vのとき</h4>
+        <p>赤部を5V，黒部を0Vとして回路図を書くと図32になる．</p>
+        <figure>
+            <img src = "osirateB0.png">
+            <figcaption>Bが0のときのオシレーター電圧</figcaption>
+        </figure>
+        <p>緑部に関しては端子123の関係から論理が1であることがわかるが，<a id = "sikii3"></a>V~5Vの幅が存在する部分になる．コンデンサー-ICの5端子，6端子-抵抗の閉回路を考え，コンデンサーにたまっている電荷をQとすると以下の式ができる．</p>
+        \begin{align}
+        -5 &= R\dot{Q} + \frac{1}{C}Q\\
+        \end{align}
+        <p>両辺を時間で微分すると</p>
+        \begin{align}
+         0 &= R\ddot{Q} + \frac{1}{C}\dot{Q}\\
+        Q &= \ ^{\forall}A\exp(\frac{t}{RC}) + \ ^{\forall}B\\
+        V &=\frac{Q}{C} = A^{\prime}\exp(\frac{t}{RC}) + \ ^{\forall}B^{\prime}\tag{**}
+        \end{align}
+        <p>図27の概形より，\(A^{\prime}\)は負,電圧は単調減少することがわかる．あるときにはしきい値である<a id = "sikii4"></a>Vを下回るため，緑部分が0となり，点Bが1となる．-(B)</p>
+        <p>(A)(B)より0,1を振動する波形が得られる.またある電圧<i>V</i><sub>0</sub>に達する時間を計算する</p>
+        \begin{align}
+            t = RC\log{\frac{V_0-B^\prime}{A^\prime}}\tag{7}
+        \end{align}
+        <p>式(7)よりＣと時間は比例関係にあることがわかる</p>
+        <!-- 実際の計算してみると面白いかも,,,-->
+        
+        <h3>[課題10-3]フリップフロップの動作原理</h3>
+        <p>フリップフロップのスイッチをSに倒したときの電圧の高低は以下の図になっている</p>
+        <figure>
+            <img src = "fripS.png">
+            <figcaption>スイッチをSに入れた時の電圧の分布</figcaption>
+        </figure>
+        <p>この状態から，スイッチを真ん中にし，どちらとも接続されていない状態にしたときの電圧の分布は以下の図になる</p>
+        <figure>
+            <img src = "fripN.png">
+            <figcaption>スイッチをどっちともつなげなかった場合の分布</figcaption>
+        </figure>
+        <p>この図ではSの部分のみ5Vになっているが，他には影響がない．これは線1が5VになっているのでRが5Vになっているならば線2が0Vになり，状態がこれに定まる．つまりフリップフロップ回路では線1,
+            線2に状態が保存されていることがわかる．Rに接続されているときは線1が0，線2が1になり保存される．</p>
+        
+        <h3>[課題12]梯子型の出力電圧について</h3>
+        <p class = "gray">参考文献が書いていないのは，書き忘れではなく，参照せず自力で行ったためである．</p>
+        <p>ここではなぜ梯子型抵抗で，DA変換ができているのかを考察する．点A,B,Cと電流の大きさ\(\mathrm{I_0,I_1,I_2,I_3}\)を定義する．</p>
+        <figure>
+            <img src = "hasigo.png">
+            <figcaption>梯子型回路の電流と点の定義</figcaption>
+        </figure>
+        <p>点Aの電圧\(V_A\)は以下の式で求めることができる</p>
+        \begin{align}
+            V_A = RI_0 = Q_0-R(I_0-I_1)\tag{7}\\
+        \end{align}
+        <p>上式を利用すると\(I_0\)を\(I_1\)を用いて表すことができ,それを代入して\(V_A\)を求めることができる．</p>
+        \begin{align}
+        I_0 &= \frac{Q_0+I_1R}{2R}\\
+        V_A &= \frac{Q_0+I_1R}{2}\tag{8}
+        \end{align}
+        <p>この計算を点B,C,\(V_\mathrm{out}\)について計算すると</p>
+        \begin{align}
+         V_\mathrm{B} &= \frac{Q_0+2Q_1+2RI_2}{4}\tag{9}\\
+         V_\mathrm{C} &= \frac{Q_0+2Q_1+4Q_2+4RI_3}{8}\tag{10}\\
+         V_\mathrm{out} &= \frac{Q_0+2Q_1+4Q_2+8Q_3}{16}\tag{11}\\
+        \end{align}
+        <p>よって梯子型回路でDA変換ができる．</p>
+        <h2>結論</h2>
+        <p>多々のICを用いて，簡易オシレータのコンデンサーの挙動とフリップフロップの挙動を観察することができた．</p>
+        <h2 class = "ref">参考文献</h2>
+        <ul>
+            <li>1.大阪工業大学 3-terminal Regulator<br><a class = "url">https://www.oit.ac.jp/rd/labs/kobayashi-lab/~yagshi/old_web/electronics/3terminalregulator.html</a></li>
+            <li>2.村田製作所 コンデンサの基礎<br><a class = "url">https://article.murata.com/ja-jp/article/basics-of-capacitors-5</a></li>
+            
+        </ul>
+    </body>
+</html>
+<script>
+    function plotgragh(datalist, graghname) {
+        let data = {
+            x: [],
+            y: [],
+            type: "scatter",
+            yaxis: "y",
+            xaxis: "x",
+            mode: "markers"
+        };
+        let data2 = {
+            x: [],
+            y: [],
+            type: "scatter",
+            yaxis: "y2",
+            mode: "markers",
+            xaxis: "x2"
+        };
+        const dataX = [];
+        const dataY = [];
+        for (let i = 0; i < datalist.length; i++) {
+            dataX.push(datalist[i][0]);
+            dataY.push(datalist[i][1]);
+        }
+        data.x = dataX;
+        data.y = dataY;
+        data2.x = dataX;
+        data2.y = dataY;
+        const plotdata = [data, data2];
+        Plotly.newPlot(graghname, plotdata, {
+            //title:"test",
+            showlegend: false,
+            xaxis: { title: `入力電圧 <i>V</i><sub>in</sub> / V`, showgrid: false, ticklen: 10, ticks: "inside" },
+            xaxis2: {
+                overlaying: "x",
+                side: "top",
+                mirror: true,
+                linewidth: 2,
+                showgrid: false,
+                ticklen: 10,
+                ticks: "inside",
+                showticklabels: false
+            },
+            yaxis: { title: `出力電圧 <i>V</i><sub>out</sub> / V`, showgrid: false, ticklen: 10, ticks: "inside" },
+            yaxis2: {
+                overlaying: "y",
+                title: "",
+                side: "right",
+                mirror: true,
+                linewidth: 2,
+                showgrid: false,
+                ticklen: 10,
+                ticks: "inside",
+                showticklabels: false
+            }
+        });
+        return [dataX, dataY];
+    }
+
+    function createsinTable(sin) {
+        sin.innerHTML = `<tr><th>N</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr>`;
+        let n = 0;
+        for (let q0 = 0; q0 <= 1; q0++) {
+            for (let q1 = 0; q1 <= 1; q1++) {
+                for (let q2 = 0; q2 <= 1; q2++) {
+                    for (let q3 = 0; q3 <= 1; q3++) {
+                        sin.innerHTML += `<tr><td>${n}</td><td>${q3}</td><td>${q2}</td><td>${q1}</td><td>${q0}</td></tr>`;
+                        n += 1;
+                    }
+                }
+            }
+        }
+        sin.innerHTML += `<tr><td>${n}</td><td>0</td><td>0</td><td>0</td><td>0</td>`;
+    }
+    function main() {
+        let data = [
+            [0.00, 5.03],
+            [0.12, 5.03],
+            [2.61, 5.02],
+            [2.74, 3.12],
+            [2.84, 2.64],
+            [2.86, 2.60],
+            [2.88, 2.76],
+            [2.89, 2.47],
+            [3.02, 1.99],
+            [3.10, 0.00],
+            [3.89, 0.00],
+            [5.00, 0.00]
+        ];
+        let voltage_data = [
+            "0.00",
+            "0.30",
+            "0.62",
+            "0.93",
+            "1.20",
+            "1.51",
+            "1.83",
+            "2.13",
+            "2.42",
+            "2.72",
+            "3.04",
+            "3.35",
+            "3.64",
+            "3.93",
+            "4.27",
+            "4.58",
+            "0.00"
+        ];
+        let [datax, datay] = plotgragh(data, document.getElementById("volgragh"));
+        let sikii = 0;
+        for (let i = 0; i < data.length; i++) {
+            if (datay[i] <= Math.max(...datay) / 2) {
+                sikii = datax[i];
+                break;
+            }
+        }
+        document.getElementById("sikii").innerHTML = sikii;
+        document.getElementById("sikii1").innerHTML = sikii;
+        document.getElementById("sikii2").innerHTML = sikii;
+        document.getElementById("sikii3").innerHTML = sikii;
+        document.getElementById("sikii4").innerHTML = sikii;
+        const sin = document.getElementById("16sin");
+        createsinTable(sin);
+        const vout = document.getElementById("N-Vout");
+        vout.innerHTML = `<tr><th>切り替え回数 \\(N\\)</th><th>電圧 \\(V_\\mathrm{out}\\) / V</th></tr>`;
+        for (let i = 0; i < 17; i++) {
+            vout.innerHTML += `<tr><td>${i}</td><td>${voltage_data[i]}</td></tr>`;
+        }
+        const volt = [0, 0];
+        for (let i = 0; i < 15; i++) {
+            volt[0] += (Number(voltage_data[i + 1]) - Number(voltage_data[i])) / 15;
+            volt[1] += Math.pow(Number(voltage_data[i + 1]) - Number(voltage_data[i]), 2) / 15;
+        }
+        volt[1] = Math.pow(volt[1] - Math.pow(volt[0], 2), 0.5);
+        let p = 0;
+        for (let i = 0; i < Math.min(String(volt[0]).length, String(volt[1]).length); i++) {
+            console.log(String(volt[1])[i]);
+            if (String(volt[1])[i] != "0" && String(volt[1])[i] != ".") {
+                p = i;
+                break;
+            }
+        }
+        console.log(volt);
+        document.getElementById("volt").innerHTML =
+            `${String(volt[0]).slice(0, p + 1)}\\(\\pm\\)${String(volt[1]).slice(0, p + 1)}`;
+        for(let i = 0;i<data.length;i++){
+            document.getElementById("dennatu").innerHTML += `<tr><td>${data[i][0]}</td><td>${data[i][1]}</td></tr>`
+        }
+    }
+    main();
+</script>
